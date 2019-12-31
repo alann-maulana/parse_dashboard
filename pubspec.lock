@@ -72,9 +72,11 @@ packages:
   flutter_parse:
     dependency: "direct main"
     description:
-      path: "../flutter_parse"
-      relative: true
-    source: path
+      path: "."
+      ref: enhancement
+      resolved-ref: c9c5d6a5c4adb195efe52d9b2d58068078a75b73
+      url: "https://github.com/eyro-labs/flutter_parse"
+    source: git
     version: "0.2.4"
   flutter_test:
     dependency: "direct dev"
