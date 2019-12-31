@@ -24,7 +24,10 @@ jobs:
         with:
           flutter-version: '1.11.0'
           channel: 'beta'
-      - run: flutter analyze
+      - name: "Rename json file example"
+        run: mv assets/json/parse-credentials-sample.json assets/json/parse-credentials.json
+      - name: "Running flutter analyzer"
+        run: flutter analyze
 
   test:
     name: Test on ${{ matrix.os }}
