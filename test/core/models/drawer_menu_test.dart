@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-
-import '../../../lib/core/models/drawer_menu.dart';
+import 'package:parse_dashboard/core/models/drawer_menu.dart';
 
 void main() {
   test('Check constant value if equal', () {
@@ -11,7 +10,7 @@ void main() {
   });
 
   test('Check created instance value if equal', () {
-    const test = DrawerMenu('Test', DrawerMenu.browser, 'value-test');
+    final test = DrawerMenu('Test', DrawerMenu.browser, 'value-test');
 
     expect(test.label == 'Test', isTrue);
     expect(test.parent == DrawerMenu.browser, isTrue);
@@ -19,11 +18,12 @@ void main() {
   });
 
   test('Check if created instance defined constant if equal', () {
-    const test = const DrawerMenu('Browser');
+    final test = DrawerMenu('Browser');
 
     expect(test == DrawerMenu.browser, isTrue);
     expect(test.label == DrawerMenu.browser.label, isTrue);
     expect(test.parent == DrawerMenu.browser.parent, isTrue);
     expect(test.value == DrawerMenu.browser.value, isTrue);
+    expect(test.hashCode == DrawerMenu.browser.hashCode, isTrue);
   });
 }
