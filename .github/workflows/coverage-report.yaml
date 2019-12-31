@@ -14,6 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
+    - uses: subosito/flutter-action@v1.1.1
+      with:
+        flutter-version: '1.11.0'
+        channel: 'beta'
     - name: "Rename parse-credentials-sample.json > parse-credentials.json"
       run: mv assets/json/parse-credentials-sample.json assets/json/parse-credentials.json
     - name: Generate coverage report
