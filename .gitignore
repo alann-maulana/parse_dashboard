@@ -38,3 +38,7 @@ lib/generated_plugin_registrant.dart
 
 # Project private files
 assets/json/parse-credentials.json
+
+# Test, Coverage
+coverage
+test/.test_coverage.dart
