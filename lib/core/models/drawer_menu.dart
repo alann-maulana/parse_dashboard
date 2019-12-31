@@ -5,10 +5,10 @@ class DrawerMenu {
   final DrawerMenu parent;
   final dynamic value;
 
-  static const DrawerMenu info = const DrawerMenu('Info');
-  static const DrawerMenu serverInfo = const DrawerMenu('Server Info', info);
+  static const DrawerMenu info = DrawerMenu('Info');
+  static const DrawerMenu serverInfo = DrawerMenu('Server Info', info);
 
-  static const DrawerMenu browser = const DrawerMenu('Browser');
+  static const DrawerMenu browser = DrawerMenu('Browser');
 
   @override
   bool operator ==(Object other) =>

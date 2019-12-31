@@ -45,12 +45,12 @@ class ServerInfoPage extends StatelessWidget {
 
         return SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 8,
-              ),
-              child: Text(encoder.convert(snapshot.data)),
-            ));
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 8,
+          ),
+          child: Text(encoder.convert(snapshot.data)),
+        ));
       },
     );
   }

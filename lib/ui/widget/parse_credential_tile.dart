@@ -66,8 +66,8 @@ class ServerVersionWidget extends StatelessWidget {
       final map = json.decode(body);
       final parseServerVersion = map['parseServerVersion'];
       return parseServerVersion;
-    } catch (e) {
-      print(e);
+    } catch (_) {
+      // ignored exception
     }
 
     return '';
