@@ -64,8 +64,8 @@ jobs:
         with:
           flutter-version: '1.11.0'
           channel: 'beta'
-      - name: "Using predefined parse-credentials at secrets env"
-        run: echo ${{ secrets.PARSE_CREDENTIALS_JSON }} > assets/json/parse-credentials.json
+      - name: "Using predefined parse-credentials.json"
+        run: echo "[{"configuration":{"server":"https://parseapi.back4app.com/","applicationId":"DekBV7i5yTYOR5suPzvJJUXO4YBrMDeEVc3cVDAk","masterKey":"nUdWWPUNbYwxD7rVYSvWWzv7uwPhiLSH6wVKbQER","localStoragePath":"/tmp","enableLogging":false},"appName":"Parse-Dashboard-Test","icon":{"codePoint":"0xe420","fontFamily":"MaterialIcons"}}]" > assets/json/parse-credentials.json
       - name: "Install flutter packages"
         run: flutter packages get
       - name: "Build Android APK split per abi"
@@ -86,8 +86,8 @@ jobs:
   #       with:
   #         flutter-version: '1.11.0'
   #         channel: 'beta'
-  #     - name: "Using predefined parse-credentials at secrets env"
-  #       run: echo ${{ secrets.PARSE_CREDENTIALS_JSON }} > assets/json/parse-credentials.json
+  #     - name: "Using predefined parse-credentials.json"
+  #       run: echo "[{"configuration":{"server":"https://parseapi.back4app.com/","applicationId":"DekBV7i5yTYOR5suPzvJJUXO4YBrMDeEVc3cVDAk","masterKey":"nUdWWPUNbYwxD7rVYSvWWzv7uwPhiLSH6wVKbQER","localStoragePath":"/tmp","enableLogging":false},"appName":"Parse-Dashboard-Test","icon":{"codePoint":"0xe420","fontFamily":"MaterialIcons"}}]" > assets/json/parse-credentials.json
   #     - name: "Install flutter packages"
   #       run: flutter packages get
   #     - name: "Build iOS for archieving preparation"
