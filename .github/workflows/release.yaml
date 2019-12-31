@@ -18,6 +18,8 @@ jobs:
       with:
         flutter-version: '1.11.0'
         channel: 'beta'
+    - name: "Create parse-credentials.json"
+      run: echo "[{"configuration":{"server":"https://parseapi.back4app.com/","applicationId":"DekBV7i5yTYOR5suPzvJJUXO4YBrMDeEVc3cVDAk","masterKey":"nUdWWPUNbYwxD7rVYSvWWzv7uwPhiLSH6wVKbQER","localStoragePath":"/tmp","enableLogging":false},"appName":"Parse-Dashboard-Test","icon":{"codePoint":"0xe420","fontFamily":"MaterialIcons"}}]" > assets/json/parse-credentials.json
     - run: flutter analyze
     - run: flutter test
     - run: flutter packages get
