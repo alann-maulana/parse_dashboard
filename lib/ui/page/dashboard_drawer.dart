@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_parse/flutter_parse.dart';
+import 'package:parse_dashboard/core/models/parse_class.dart';
 
 import '../../core/models/drawer_menu.dart';
 
@@ -83,7 +84,7 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
             child: CircularProgressIndicator(),
           ));
         } else {
-          final specialClassItems =
+          final classItems =
               widget.schemas != null && widget.schemas.isNotEmpty
                   ? widget.schemas.map((schema) {
                       return ListTile(
@@ -103,12 +104,12 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
                     }).toList()
                   : null;
 
-          if (specialClassItems == null) {
+          if (classItems == null) {
             children.add(Center(
               child: Text('No class found'),
             ));
           } else {
-            if (specialClassItems != null) {
+            if (classItems != null) {
               children.add(
                 Expanded(
                   child: RefreshIndicator(
@@ -118,7 +119,7 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
                         mainAxisSize: MainAxisSize.min,
                         children: ListTile.divideTiles(
                           context: context,
-                          tiles: specialClassItems,
+                          tiles: classItems,
                         ).toList(),
                       ),
                     ),
@@ -137,22 +138,9 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
   }
 
   Widget leading(String className) {
-    if (className == '_Installation') {
-      return Icon(Icons.devices_other);
-    }
-    if (className == '_Product') {
-      return Icon(Icons.add_shopping_cart);
-    }
-    if (className == '_Role') {
-      return Icon(Icons.people_outline);
-    }
-
-    if (className == '_Session') {
-      return Icon(Icons.pie_chart_outlined);
-    }
-
-    if (className == '_User') {
-      return Icon(Icons.person_outline);
+    final parseClass = ParseClass.from(className);
+    if (parseClass.icon != null) {
+      return Icon(parseClass.icon);
     }
 
     return null;

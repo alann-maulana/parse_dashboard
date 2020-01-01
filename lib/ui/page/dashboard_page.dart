@@ -118,7 +118,7 @@ class _DashboardPageState extends State<DashboardPage> {
           return ClassViewer(schemas[index - 1]);
         },
         controller: pageController,
-        itemCount: schemas?.length ?? 0 + 1,
+        itemCount: (schemas?.length ?? 0) + 1,
         physics: NeverScrollableScrollPhysics(),
       ),
     );

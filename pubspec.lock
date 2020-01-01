@@ -74,7 +74,7 @@ packages:
     description:
       path: "."
       ref: enhancement
-      resolved-ref: c9c5d6a5c4adb195efe52d9b2d58068078a75b73
+      resolved-ref: a3d31d64c8de16848afe17a93d04adf0dc5b9276
       url: "https://github.com/eyro-labs/flutter_parse"
     source: git
     version: "0.2.4"
@@ -89,7 +89,7 @@ packages:
       name: http
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.0+2"
+    version: "0.12.0+3"
   http_parser:
     dependency: transitive
     description:
@@ -166,7 +166,7 @@ packages:
       name: sembast
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.2+1"
+    version: "2.1.2+2"
   sky_engine:
     dependency: transitive
     description: flutter
