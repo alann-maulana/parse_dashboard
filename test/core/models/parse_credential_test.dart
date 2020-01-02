@@ -86,6 +86,7 @@ void main() {
 
   test('Check instance if equal', () {
     final credential = ParseCredential.fromMap({
+      "id": "id_ID",
       "configuration": {
         "server": "https://test.server.com/",
         "applicationId": "TEST_APPLICATION_ID",
@@ -95,6 +96,7 @@ void main() {
     });
 
     final credential2 = ParseCredential(
+      id: 'id_ID',
       appName: 'TEST_NAME',
       icon: Icons.tag_faces,
       configuration: ParseConfiguration(

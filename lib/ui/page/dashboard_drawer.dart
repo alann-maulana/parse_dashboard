@@ -84,25 +84,24 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
             child: CircularProgressIndicator(),
           ));
         } else {
-          final classItems =
-              widget.schemas != null && widget.schemas.isNotEmpty
-                  ? widget.schemas.map((schema) {
-                      return ListTile(
-                        leading: leading(schema.className),
-                        title: Text(schema.className),
-                        onTap: () {
-                          widget.callback(
-                            DrawerMenu(
-                              schema.className,
-                              DrawerMenu.browser,
-                              schema,
-                            ),
-                          );
-                          Navigator.pop(context);
-                        },
+          final classItems = widget.schemas != null && widget.schemas.isNotEmpty
+              ? widget.schemas.map((schema) {
+                  return ListTile(
+                    leading: leading(schema.className),
+                    title: Text(schema.className),
+                    onTap: () {
+                      widget.callback(
+                        DrawerMenu(
+                          schema.className,
+                          DrawerMenu.browser,
+                          schema,
+                        ),
                       );
-                    }).toList()
-                  : null;
+                      Navigator.pop(context);
+                    },
+                  );
+                }).toList()
+              : null;
 
           if (classItems == null) {
             children.add(Center(

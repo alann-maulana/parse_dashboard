@@ -14,7 +14,7 @@ abstract class LocalStorage {
   Future<String> get databaseBasePath;
 
   Future<String> get databasePath;
-  
+
   Database get database;
 
   DatabaseFactory get databaseFactory;
