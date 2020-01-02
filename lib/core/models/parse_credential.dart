@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_parse/flutter_parse.dart';
+import 'package:parse_dashboard/core/utils/uuid.dart';
 
 class ParseCredential {
+  final String _id;
   final IconData icon;
   final String appName;
   final ParseConfiguration configuration;
@@ -9,13 +11,16 @@ class ParseCredential {
   ParseCredential({
     @required this.appName,
     @required this.configuration,
+    String id,
     IconData icon,
   })  : assert(appName != null),
         assert(configuration != null),
+        _id = id ?? uuid.generateV4(),
         icon = icon ?? Icons.storage;
 
   ParseCredential.fromMap(dynamic map)
       : this(
+          id: map['id'],
           appName: map['appName'],
           configuration: _parseConfiguration(map['configuration']),
           icon: _parseIconData(map['icon']),
@@ -55,16 +60,38 @@ class ParseCredential {
     );
   }
 
+  String get id => _id;
+
+  dynamic get asMap {
+    final map = <String, dynamic>{
+      "configuration": {
+        "server": configuration.uri.toString(),
+        "applicationId": configuration.applicationId,
+        "masterKey": configuration.masterKey,
+        "localStoragePath": configuration.localStoragePath,
+        "enableLogging": configuration.enableLogging
+      },
+      "appName": appName,
+      "id": _id,
+    };
+
+    if (icon != null) {
+      map["icon"] = {
+        "codePoint": "${icon.codePoint}",
+        "fontFamily": icon.fontFamily,
+      };
+    }
+
+    return map;
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is ParseCredential &&
           runtimeType == other.runtimeType &&
-          icon == other.icon &&
-          appName == other.appName &&
-          configuration.applicationId == other.configuration.applicationId;
+          _id == other._id;
 
   @override
-  int get hashCode =>
-      icon.hashCode ^ appName.hashCode ^ configuration.applicationId.hashCode;
+  int get hashCode => _id.hashCode;
 }

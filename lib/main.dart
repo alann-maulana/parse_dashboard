@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'core/api/parse_credential_api.dart';
+import 'core/db/local_storage.dart';
 import 'router.dart';
 import 'ui/theme/theme_color.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await localStorage.initialize();
   await parseCredentialApi
       .initializeAssetJSON('assets/json/parse-credentials.json');
 
