@@ -1,0 +1,28 @@
+name: Coverage
+
+on: 
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  codecov_io:
+    name: "codecov.io"
+    runs-on: ubuntu-latest
+    env:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+    steps:
+    - uses: actions/checkout@v1
+    - uses: subosito/flutter-action@v1.1.1
+      with:
+        flutter-version: '1.11.0'
+        channel: 'beta'
+    - name: "Rename parse-credentials-sample.json > parse-credentials.json"
+      run: mv assets/json/parse-credentials-sample.json assets/json/parse-credentials.json
+    - name: Generate coverage report
+      run: flutter test --coverage --coverage-path ./coverage/lcov.info
+    - name: Send to codecov.io
+      run: bash <(curl -s https://codecov.io/bash)
