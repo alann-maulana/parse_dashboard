@@ -89,6 +89,7 @@ class _ParseCredentialFormState extends State<ParseCredentialForm> {
                     server: server,
                     applicationId: appId,
                     masterKey: masterKey,
+                    enableLogging: false,
                     localStoragePath: '',
                   ),
                 ),
@@ -112,6 +113,12 @@ class _ParseCredentialFormState extends State<ParseCredentialForm> {
         child: TextField(
           controller: appNameController,
           maxLines: null,
+          toolbarOptions: ToolbarOptions(
+            copy: true,
+            cut: true,
+            paste: true,
+            selectAll: true,
+          ),
           decoration: InputDecoration(
             prefixIcon: Icon(Icons.apps),
             labelText: 'Application Name',
@@ -125,6 +132,12 @@ class _ParseCredentialFormState extends State<ParseCredentialForm> {
           controller: serverController,
           maxLines: null,
           keyboardType: TextInputType.url,
+          toolbarOptions: ToolbarOptions(
+            copy: true,
+            cut: true,
+            paste: true,
+            selectAll: true,
+          ),
           decoration: InputDecoration(
             prefixIcon: Icon(Icons.computer),
             labelText: 'Server URL',
@@ -137,6 +150,12 @@ class _ParseCredentialFormState extends State<ParseCredentialForm> {
         child: TextField(
           controller: applicationIdController,
           maxLines: null,
+          toolbarOptions: ToolbarOptions(
+            copy: true,
+            cut: true,
+            paste: true,
+            selectAll: true,
+          ),
           decoration: InputDecoration(
             prefixIcon: Icon(Icons.perm_identity),
             labelText: 'Application ID',
@@ -149,6 +168,12 @@ class _ParseCredentialFormState extends State<ParseCredentialForm> {
         child: TextField(
           controller: masterKeyController,
           maxLines: null,
+          toolbarOptions: ToolbarOptions(
+            copy: true,
+            cut: true,
+            paste: true,
+            selectAll: true,
+          ),
           decoration: InputDecoration(
             prefixIcon: Icon(Icons.lock_outline),
             labelText: 'Master Key',
