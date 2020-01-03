@@ -18,9 +18,9 @@ jobs:
         with:
           java-version: 1.8
       - uses: subosito/flutter-action@v1.1.1
-          with:
-            flutter-version: '1.13.5'
-            channel: 'dev'
+        with:
+          flutter-version: '1.13.5'
+          channel: 'dev'
       - name: "Create parse-credentials.json"
         run: echo "[{"configuration":{"server":"https://parseapi.back4app.com/","applicationId":"DekBV7i5yTYOR5suPzvJJUXO4YBrMDeEVc3cVDAk","masterKey":"nUdWWPUNbYwxD7rVYSvWWzv7uwPhiLSH6wVKbQER","localStoragePath":"/tmp","enableLogging":false},"appName":"Parse-Dashboard-Test","icon":{"codePoint":"0xe420","fontFamily":"MaterialIcons"}}]" > assets/json/parse-credentials.json
       - name: "Install flutter packages"
@@ -34,10 +34,10 @@ jobs:
       - name: "Copy 64-bit APK release into web folder"
         run: mv build/app/outputs/apk/release/app-arm64-v8a-release.apk build/web/parse-dashboard-64bit.apk
       - name: "Deploy to Netlify"
-          uses: netlify/actions/cli@master
-            env:
-              NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-              NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-            with:
-              args: deploy --dir=build/web --prod
-              secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
+        uses: netlify/actions/cli@master
+          env:
+            NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+            NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          with:
+            args: deploy --dir=build/web --prod
+            secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
