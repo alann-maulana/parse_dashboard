@@ -58,12 +58,16 @@ jobs:
         run: echo "[{"configuration":{"server":"https://parseapi.back4app.com/","applicationId":"DekBV7i5yTYOR5suPzvJJUXO4YBrMDeEVc3cVDAk","masterKey":"nUdWWPUNbYwxD7rVYSvWWzv7uwPhiLSH6wVKbQER","localStoragePath":"/tmp","enableLogging":false},"appName":"Parse-Dashboard-Test","icon":{"codePoint":"0xe420","fontFamily":"MaterialIcons"}}]" > assets/json/parse-credentials.json
       - name: "Install flutter packages"
         run: flutter packages get
-      - name: "Build android APK 32 & 64 bit"
+      - name: "Build android APK debug 32 & 64 bit"
+        run: flutter build apk --debug --target-platform android-arm,android-arm64 --split-per-abi -v
+      - name: "Copy APK debug into web folder"
+        run: mv build/app/outputs/apk/debug/app-armeabi-v7a-debug.apk build/web/32bit-debug.apk \
+          && mv build/app/outputs/apk/debug/app-arm64-v8a-debug.apk build/web/64bit-debug.apk
+      - name: "Build android APK release 32 & 64 bit"
         run: flutter build apk --release --target-platform android-arm,android-arm64 --split-per-abi -v
-      - name: "Copy 32-bit APK release into web folder"
-        run: mv build/app/outputs/apk/release/app-armeabi-v7a-release.apk build/web/parse-dashboard-32bit.apk
-      - name: "Copy 64-bit APK release into web folder"
-        run: mv build/app/outputs/apk/release/app-arm64-v8a-release.apk build/web/parse-dashboard-64bit.apk
+      - name: "Copy APK release into web folder"
+        run: mv build/app/outputs/apk/release/app-armeabi-v7a-release.apk build/web/32bit.apk \
+          && mv build/app/outputs/apk/release/app-arm64-v8a-release.apk build/web/64bit.apk
       - name: "Upload build/web"
         uses: actions/upload-artifact@v1
         with:
