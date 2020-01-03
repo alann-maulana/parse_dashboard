@@ -1,4 +1,4 @@
-name: Coverage
+name: Generate Coverage Report
 
 on: 
   push:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   codecov_io:
-    name: "codecov.io"
+    name: "for codecov.io"
     runs-on: ubuntu-latest
     env:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

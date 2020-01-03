@@ -1,4 +1,4 @@
-name: APK-Releases
+name: APK Releases
 
 on: 
   push:
@@ -8,6 +8,7 @@ on:
 jobs:
 
   build:
+    name: to Github Release
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
