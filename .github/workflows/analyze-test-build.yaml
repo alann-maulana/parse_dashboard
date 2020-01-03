@@ -31,6 +31,7 @@ jobs:
         run: flutter packages get
       - run: flutter analyze
       - run: flutter test
+      - run: flutter config --enable-web
       - name: "Build web"
         run: flutter build web --release -v
       - name: "Build Android APK 32 & 64 bit"
@@ -57,11 +58,13 @@ jobs:
         run: flutter packages get
       - run: flutter analyze
       - run: flutter test
+      - run: flutter config --enable-web
       - name: "Build web"
         run: flutter build web --release -v
       - name: "Build Android APK 32 & 64 bit"
         run: flutter build apk --release --target-platform android-arm,android-arm64 --split-per-abi -v
       - name: "Build iOS for archiving without codesign"
         run: flutter build ios --release --no-codesign -v
+      - run: flutter config --enable-macos-desktop
       - name: "Build macOS for archiving"
         run: flutter build macos --release -v

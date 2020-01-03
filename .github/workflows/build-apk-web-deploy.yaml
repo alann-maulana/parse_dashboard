@@ -27,6 +27,7 @@ jobs:
         run: flutter packages get
       - name: "Build android APK 32 & 64 bit"
         run: flutter build apk --release --target-platform android-arm,android-arm64 --split-per-abi -v
+      - run: flutter config --enable-web
       - name: "Build flutter web"
         run: flutter build web --release -v
       - name: "Copy 32-bit APK release into web folder"
