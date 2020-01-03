@@ -26,11 +26,12 @@ jobs:
       run: flutter test --coverage --coverage-path ./coverage/lcov.info
     - name: Send to codecov.io
       run: bash <(curl -s https://codecov.io/bash)
+    - run: ls -al ./coverage
     - name: "Upload coverage"
       uses: actions/upload-artifact@v1
       with:
         name: coverage
-        path: coverage
+        path: ./coverage
 
   coveralls_io:
     name: "for coveralls.io"
@@ -41,7 +42,8 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: coverage
-        path: coverage
+        path: ./coverage
+    - run: ls -al ./coverage
     - name: Send to coveralls.io
       uses: coverallsapp/github-action@master
       with:
