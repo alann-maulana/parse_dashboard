@@ -1,4 +1,4 @@
-name: Build APK & Web then Deploy
+name: APK & Web Deployment
 
 on: 
   push:
@@ -9,9 +9,9 @@ on:
       - '*'
 
 jobs:
-  build-apk-web-deploy:
-    name: to Netlify
-    runs-on: ubuntu-latest
+  build-web:
+    name: Build Web
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-java@v1
@@ -25,15 +25,59 @@ jobs:
         run: echo "[{"configuration":{"server":"https://parseapi.back4app.com/","applicationId":"DekBV7i5yTYOR5suPzvJJUXO4YBrMDeEVc3cVDAk","masterKey":"nUdWWPUNbYwxD7rVYSvWWzv7uwPhiLSH6wVKbQER","localStoragePath":"/tmp","enableLogging":false},"appName":"Parse-Dashboard-Test","icon":{"codePoint":"0xe420","fontFamily":"MaterialIcons"}}]" > assets/json/parse-credentials.json
       - name: "Install flutter packages"
         run: flutter packages get
-      - name: "Build android APK 32 & 64 bit"
-        run: flutter build apk --release --target-platform android-arm,android-arm64 --split-per-abi -v
       - run: flutter config --enable-web
       - name: "Build flutter web"
         run: flutter build web --release -v
+      - name: "Upload build/web"
+        uses: actions/upload-artifact@v1
+        with:
+          name: parse-dashboard-web
+          path: build/web
+
+  build-apk:
+    name: Build APK
+    needs: build-web
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - uses: subosito/flutter-action@v1.1.1
+        with:
+          flutter-version: '1.13.5'
+          channel: 'dev'
+      - name: "Download build/web"
+        uses: actions/download-artifact@v1
+        with:
+          name: parse-dashboard-web
+          path: build/web
+      - name: "Create parse-credentials.json"
+        run: echo "[{"configuration":{"server":"https://parseapi.back4app.com/","applicationId":"DekBV7i5yTYOR5suPzvJJUXO4YBrMDeEVc3cVDAk","masterKey":"nUdWWPUNbYwxD7rVYSvWWzv7uwPhiLSH6wVKbQER","localStoragePath":"/tmp","enableLogging":false},"appName":"Parse-Dashboard-Test","icon":{"codePoint":"0xe420","fontFamily":"MaterialIcons"}}]" > assets/json/parse-credentials.json
+      - name: "Install flutter packages"
+        run: flutter packages get
+      - name: "Build android APK 32 & 64 bit"
+        run: flutter build apk --release --target-platform android-arm,android-arm64 --split-per-abi -v
       - name: "Copy 32-bit APK release into web folder"
         run: mv build/app/outputs/apk/release/app-armeabi-v7a-release.apk build/web/parse-dashboard-32bit.apk
       - name: "Copy 64-bit APK release into web folder"
         run: mv build/app/outputs/apk/release/app-arm64-v8a-release.apk build/web/parse-dashboard-64bit.apk
+      - name: "Upload build/web"
+        uses: actions/upload-artifact@v1
+        with:
+          name: parse-dashboard-web
+          path: build/web
+
+  deploy:
+    name: Deploy to Netlify
+    needs: build-apk
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Download build/web"
+        uses: actions/download-artifact@v1
+        with:
+          name: parse-dashboard-web
+          path: build/web
       - name: "Deploy to Netlify"
         uses: netlify/actions/cli@master
         env:
