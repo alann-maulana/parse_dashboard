@@ -30,3 +30,9 @@ build-local-dev: reformatting build-dev
 	lcov --list coverage/lcov.info
 	lcov --summary coverage/lcov.info
 	open coverage/index.html
+
+# Build split Apk Bundle for both ARM-ARM64
+apk-split-dev:
+	flutter-dev packages get
+	flutter-dev build apk --target-platform android-arm,android-arm64 --split-per-abi -v
+	open `PWD`/build/app/outputs/apk/release/
