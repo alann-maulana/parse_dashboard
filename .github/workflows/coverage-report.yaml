@@ -38,12 +38,12 @@ jobs:
     needs: codecov_io
     runs-on: ubuntu-latest
     steps:
-    - name: "Download build/web"
+    - name: "Download coverage"
       uses: actions/download-artifact@v1
       with:
         name: coverage
         path: ./coverage
-    - run: ls -al ./coverage
+    - run: cat ./coverage/lcov.info
     - name: Send to coveralls.io
       uses: coverallsapp/github-action@master
       with:
