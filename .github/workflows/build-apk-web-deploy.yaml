@@ -11,7 +11,7 @@ on:
 jobs:
   build-web:
     name: Build Web
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-java@v1
@@ -28,6 +28,7 @@ jobs:
       - run: flutter config --enable-web
       - name: "Build flutter web"
         run: flutter build web --release -v
+      - run: ls -al build/web
       - name: "Upload build/web"
         uses: actions/upload-artifact@v1
         with:
@@ -37,7 +38,7 @@ jobs:
   build-apk:
     name: Build APK
     needs: build-web
-    runs-on: windows-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-java@v1
@@ -52,6 +53,7 @@ jobs:
         with:
           name: parse-dashboard-web
           path: build/web
+      - run: ls -al build/web
       - name: "Create parse-credentials.json"
         run: echo "[{"configuration":{"server":"https://parseapi.back4app.com/","applicationId":"DekBV7i5yTYOR5suPzvJJUXO4YBrMDeEVc3cVDAk","masterKey":"nUdWWPUNbYwxD7rVYSvWWzv7uwPhiLSH6wVKbQER","localStoragePath":"/tmp","enableLogging":false},"appName":"Parse-Dashboard-Test","icon":{"codePoint":"0xe420","fontFamily":"MaterialIcons"}}]" > assets/json/parse-credentials.json
       - name: "Install flutter packages"
@@ -78,6 +80,7 @@ jobs:
         with:
           name: parse-dashboard-web
           path: build/web
+      - run: ls -al build/web
       - name: "Deploy to Netlify"
         uses: netlify/actions/cli@master
         env:

@@ -11,7 +11,7 @@ on:
 
 jobs:
   job-ubuntu-windows:
-    name: on ${{ matrix.os }}
+    name: Running on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -38,7 +38,8 @@ jobs:
         run: flutter build apk --release --target-platform android-arm,android-arm64 --split-per-abi -v
 
   job-mac:
-    name: on ${{ matrix.os }}
+    name: Running on ${{ matrix.os }}
+    needs: job-ubuntu-windows
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
