@@ -22,7 +22,7 @@ jobs:
           flutter-version: '1.13.5'
           channel: 'dev'
       - name: "Create parse-credentials.json"
-        run: echo "[{"configuration":{"server":"https://parseapi.back4app.com/","applicationId":"DekBV7i5yTYOR5suPzvJJUXO4YBrMDeEVc3cVDAk","masterKey":"nUdWWPUNbYwxD7rVYSvWWzv7uwPhiLSH6wVKbQER","localStoragePath":"/tmp","enableLogging":false},"appName":"Parse-Dashboard-Test","icon":{"codePoint":"0xe420","fontFamily":"MaterialIcons"}}]" > assets/json/parse-credentials.json
+        run: echo '[{"configuration":{"server":"https://parseapi.back4app.com/","applicationId":"DekBV7i5yTYOR5suPzvJJUXO4YBrMDeEVc3cVDAk","masterKey":"nUdWWPUNbYwxD7rVYSvWWzv7uwPhiLSH6wVKbQER","localStoragePath":"","enableLogging":false},"appName":"Parse-Dashboard-Test","icon":{"codePoint":"0xe420","fontFamily":"MaterialIcons"}}]' > assets/json/parse-credentials.json
       - name: "Install flutter packages"
         run: flutter packages get
       - run: flutter config --enable-web
@@ -53,7 +53,7 @@ jobs:
           name: parse-dashboard-web
           path: build/web
       - name: "Create parse-credentials.json"
-        run: echo "[{"configuration":{"server":"https://parseapi.back4app.com/","applicationId":"DekBV7i5yTYOR5suPzvJJUXO4YBrMDeEVc3cVDAk","masterKey":"nUdWWPUNbYwxD7rVYSvWWzv7uwPhiLSH6wVKbQER","localStoragePath":"/tmp","enableLogging":false},"appName":"Parse-Dashboard-Test","icon":{"codePoint":"0xe420","fontFamily":"MaterialIcons"}}]" > assets/json/parse-credentials.json
+        run: echo '[{"configuration":{"server":"https://parseapi.back4app.com/","applicationId":"DekBV7i5yTYOR5suPzvJJUXO4YBrMDeEVc3cVDAk","masterKey":"nUdWWPUNbYwxD7rVYSvWWzv7uwPhiLSH6wVKbQER","localStoragePath":"","enableLogging":false},"appName":"Parse-Dashboard-Test","icon":{"codePoint":"0xe420","fontFamily":"MaterialIcons"}}]' > assets/json/parse-credentials.json
       - name: "Install flutter packages"
         run: flutter packages get
       - name: "Build android APK debug 32 & 64 bit"
