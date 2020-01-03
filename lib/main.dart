@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'core/api/parse_credential_api.dart';
 import 'core/db/local_storage.dart';
 import 'router.dart';
+import 'sentry_client.dart';
 import 'ui/theme/theme_color.dart';
 
 void main() async {
@@ -11,7 +14,13 @@ void main() async {
   await parseCredentialApi
       .initializeAssetJSON('assets/json/parse-credentials.json');
 
-  runApp(MyApp());
+  // handle error framework
+  handleErrorFramework();
+
+  // run TingRoom widget app in zone
+  runZoned<Future<void>>(() async {
+    runApp(MyApp());
+  }, onError: reportError);
 }
 
 class MyApp extends StatelessWidget {
