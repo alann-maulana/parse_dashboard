@@ -28,7 +28,6 @@ jobs:
       - run: flutter config --enable-web
       - name: "Build flutter web"
         run: flutter build web --release -v
-      - run: ls -al build/web
       - name: "Upload build/web"
         uses: actions/upload-artifact@v1
         with:
@@ -53,21 +52,18 @@ jobs:
         with:
           name: parse-dashboard-web
           path: build/web
-      - run: ls -al build/web
       - name: "Create parse-credentials.json"
         run: echo "[{"configuration":{"server":"https://parseapi.back4app.com/","applicationId":"DekBV7i5yTYOR5suPzvJJUXO4YBrMDeEVc3cVDAk","masterKey":"nUdWWPUNbYwxD7rVYSvWWzv7uwPhiLSH6wVKbQER","localStoragePath":"/tmp","enableLogging":false},"appName":"Parse-Dashboard-Test","icon":{"codePoint":"0xe420","fontFamily":"MaterialIcons"}}]" > assets/json/parse-credentials.json
       - name: "Install flutter packages"
         run: flutter packages get
       - name: "Build android APK debug 32 & 64 bit"
         run: flutter build apk --debug --target-platform android-arm,android-arm64 --split-per-abi -v
-      - name: "Copy APK debug into web folder"
-        run: mv build/app/outputs/apk/debug/app-armeabi-v7a-debug.apk build/web/32bit-debug.apk \
-          && mv build/app/outputs/apk/debug/app-arm64-v8a-debug.apk build/web/64bit-debug.apk
+      - run: mv build/app/outputs/apk/debug/app-armeabi-v7a-debug.apk build/web/debug/32bit.apk
+      - run: mv build/app/outputs/apk/debug/app-arm64-v8a-debug.apk build/web/debug/64bit.apk
       - name: "Build android APK release 32 & 64 bit"
         run: flutter build apk --release --target-platform android-arm,android-arm64 --split-per-abi -v
-      - name: "Copy APK release into web folder"
-        run: mv build/app/outputs/apk/release/app-armeabi-v7a-release.apk build/web/32bit.apk \
-          && mv build/app/outputs/apk/release/app-arm64-v8a-release.apk build/web/64bit.apk
+      - run: mv build/app/outputs/apk/release/app-armeabi-v7a-release.apk build/web/release/32bit.apk
+      - run: mv build/app/outputs/apk/release/app-arm64-v8a-release.apk build/web/release/64bit.apk
       - name: "Upload build/web"
         uses: actions/upload-artifact@v1
         with:
@@ -84,7 +80,6 @@ jobs:
         with:
           name: parse-dashboard-web
           path: build/web
-      - run: ls -al build/web
       - name: "Deploy to Netlify"
         uses: netlify/actions/cli@master
         env:
