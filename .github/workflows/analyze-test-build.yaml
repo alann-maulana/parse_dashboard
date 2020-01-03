@@ -39,7 +39,6 @@ jobs:
 
   job-mac:
     name: Running on ${{ matrix.os }}
-    needs: job-ubuntu-windows
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
