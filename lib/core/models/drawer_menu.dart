@@ -7,7 +7,7 @@ class DrawerMenu {
 
   static const DrawerMenu info = DrawerMenu('Info');
   static const DrawerMenu serverInfo = DrawerMenu('Server Info', info);
-
+  static const DrawerMenu config = DrawerMenu('Global Config');
   static const DrawerMenu browser = DrawerMenu('Browser');
 
   @override

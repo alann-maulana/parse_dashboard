@@ -33,7 +33,6 @@ void main() {
         applicationId: 'TEST_APPLICATION_ID',
         clientKey: 'TEST_CLIENT_KEY',
         masterKey: 'TEST_MASTER_KEY',
-        localStoragePath: '/path/to/local/storage',
         enableLogging: false,
       ),
     );
@@ -49,9 +48,6 @@ void main() {
         isTrue);
     expect(credential.configuration.clientKey == 'TEST_CLIENT_KEY', isTrue);
     expect(credential.configuration.masterKey == 'TEST_MASTER_KEY', isTrue);
-    expect(
-        credential.configuration.localStoragePath == '/path/to/local/storage',
-        isTrue);
     expect(credential.configuration.enableLogging, isFalse);
   });
 
@@ -78,9 +74,6 @@ void main() {
     expect(credential.configuration.applicationId == 'TEST_APPLICATION_ID',
         isTrue);
     expect(credential.configuration.masterKey == 'TEST_MASTER_KEY', isTrue);
-    expect(
-        credential.configuration.localStoragePath == '/path/to/local/storage',
-        isTrue);
     expect(credential.configuration.enableLogging, isFalse);
   });
 

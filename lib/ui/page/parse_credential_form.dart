@@ -90,7 +90,6 @@ class _ParseCredentialFormState extends State<ParseCredentialForm> {
                     applicationId: appId,
                     masterKey: masterKey,
                     enableLogging: false,
-                    localStoragePath: '',
                   ),
                 ),
               );

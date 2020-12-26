@@ -36,7 +36,6 @@ class ParseCredential {
       applicationId: map['applicationId'],
       masterKey: map['masterKey'],
       clientKey: map['clientKey'],
-      localStoragePath: map['localStoragePath'],
       enableLogging: map['enableLogging'] ?? false,
     );
   }
@@ -68,7 +67,6 @@ class ParseCredential {
         "server": configuration.uri.toString(),
         "applicationId": configuration.applicationId,
         "masterKey": configuration.masterKey,
-        "localStoragePath": configuration.localStoragePath,
         "enableLogging": configuration.enableLogging
       },
       "appName": appName,

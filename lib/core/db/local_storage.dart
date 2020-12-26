@@ -1,27 +1,22 @@
-import 'package:sembast/sembast.dart';
+import 'dart:convert';
 
-import 'stub/local_storage_stub.dart'
-    if (dart.library.html) 'html/browser_local_storage.dart'
-    if (dart.library.io) 'io/io_local_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-final LocalStorage localStorage = LocalStorage();
+final LocalStorage localStorage = LocalStorage._();
 
-abstract class LocalStorage {
-  factory LocalStorage() => createLocalStorage();
+class LocalStorage {
+  LocalStorage._();
 
-  Future<void> initialize();
+  Future<dynamic> read(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    final result = prefs.getString(key);
+    if (result == null) return null;
 
-  Future<String> get databaseBasePath;
+    return json.decode(result);
+  }
 
-  Future<String> get databasePath;
-
-  Database get database;
-
-  DatabaseFactory get databaseFactory;
-
-  Future<Database> get localStorageDatabase;
-
-  Future<dynamic> read(String key);
-
-  Future<void> write(String key, dynamic value);
+  Future<void> write(String key, dynamic value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(key, json.encode(value));
+  }
 }

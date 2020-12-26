@@ -26,6 +26,8 @@ class DashboardDrawer extends StatefulWidget {
 }
 
 class _DashboardDrawerState extends State<DashboardDrawer> {
+  bool showDatabaseBrowserItem = true;
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -59,7 +61,7 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
                     color: Colors.white,
                   ),
                   title: Text(
-                    'Server Info',
+                    'SERVER INFO',
                     style: TextStyle(
                       color: Colors.white,
                     ),
@@ -76,7 +78,42 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
             ),
-          )
+          ),
+          Material(
+            color: Colors.white,
+            child: ListTile(
+              leading: Icon(Icons.tune),
+              title: Text('GLOBAL CONFIG'),
+              onTap: () {
+                widget.callback(
+                  DrawerMenu(
+                    '_Config',
+                    DrawerMenu.config,
+                  ),
+                );
+                Navigator.pop(context);
+              },
+            ),
+          ),
+          Divider(height: 0),
+          Material(
+            color: Colors.white,
+            child: ListTile(
+              leading: Icon(Icons.event_note),
+              title: Text('DATABASE BROWSER'),
+              trailing: Icon(
+                showDatabaseBrowserItem
+                    ? Icons.keyboard_arrow_down
+                    : Icons.keyboard_arrow_up,
+              ),
+              onTap: () {
+                setState(() {
+                  showDatabaseBrowserItem = !showDatabaseBrowserItem;
+                });
+              },
+            ),
+          ),
+          Divider(height: 0),
         ];
 
         if (widget.schemas == null) {
@@ -108,7 +145,7 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
               child: Text('No class found'),
             ));
           } else {
-            if (classItems != null) {
+            if (classItems != null && showDatabaseBrowserItem) {
               children.add(
                 Expanded(
                   child: RefreshIndicator(

@@ -17,12 +17,12 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - uses: subosito/flutter-action@v1.1.1
+      - uses: subosito/flutter-action@v1.4.0
         with:
-          flutter-version: '1.13.5'
+          flutter-version: '1.25.0-8.0.pre'
           channel: 'dev'
       - name: "Create parse-credentials.json"
-        run: echo '[{"configuration":{"server":"https://parseapi.back4app.com/","applicationId":"DekBV7i5yTYOR5suPzvJJUXO4YBrMDeEVc3cVDAk","masterKey":"nUdWWPUNbYwxD7rVYSvWWzv7uwPhiLSH6wVKbQER","localStoragePath":"","enableLogging":false},"appName":"Parse-Dashboard-Test","icon":{"codePoint":"0xe420","fontFamily":"MaterialIcons"}}]' > assets/json/parse-credentials.json
+        run: echo '[{"configuration":{"server":"https://parseapi.back4app.com/","applicationId":"DekBV7i5yTYOR5suPzvJJUXO4YBrMDeEVc3cVDAk","masterKey":"nUdWWPUNbYwxD7rVYSvWWzv7uwPhiLSH6wVKbQER","enableLogging":false},"appName":"Parse-Dashboard-Test","icon":{"codePoint":"0xe420","fontFamily":"MaterialIcons"}}]' > assets/json/parse-credentials.json
       - name: "Install flutter packages"
         run: flutter packages get
       - run: flutter config --enable-web
@@ -43,9 +43,9 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - uses: subosito/flutter-action@v1.1.1
+      - uses: subosito/flutter-action@v1.4.0
         with:
-          flutter-version: '1.13.5'
+          flutter-version: '1.25.0-8.0.pre'
           channel: 'dev'
       - name: "Download build/web"
         uses: actions/download-artifact@v1
@@ -53,7 +53,7 @@ jobs:
           name: parse-dashboard-web
           path: build/web
       - name: "Create parse-credentials.json"
-        run: echo '[{"configuration":{"server":"https://parseapi.back4app.com/","applicationId":"DekBV7i5yTYOR5suPzvJJUXO4YBrMDeEVc3cVDAk","masterKey":"nUdWWPUNbYwxD7rVYSvWWzv7uwPhiLSH6wVKbQER","localStoragePath":"","enableLogging":false},"appName":"Parse-Dashboard-Test","icon":{"codePoint":"0xe420","fontFamily":"MaterialIcons"}}]' > assets/json/parse-credentials.json
+        run: echo '[{"configuration":{"server":"https://parseapi.back4app.com/","applicationId":"DekBV7i5yTYOR5suPzvJJUXO4YBrMDeEVc3cVDAk","masterKey":"nUdWWPUNbYwxD7rVYSvWWzv7uwPhiLSH6wVKbQER","enableLogging":false},"appName":"Parse-Dashboard-Test","icon":{"codePoint":"0xe420","fontFamily":"MaterialIcons"}}]' > assets/json/parse-credentials.json
       - name: "Install flutter packages"
         run: flutter packages get
       - name: "Build android APK debug 32 & 64 bit"
