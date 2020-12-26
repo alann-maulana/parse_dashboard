@@ -24,10 +24,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   flutter_parse:
-     path: ../../2019/flutter_parse
-#   git:
-#     url: https://github.com/eyro-labs/flutter_parse
-#     ref: enhancement
+   git:
+     url: https://github.com/eyro-labs/flutter_parse
+     ref: enhancement
   device_info: ^0.4.1
   package_info: ^0.4.0+4
   sentry: ^3.0.0+1
