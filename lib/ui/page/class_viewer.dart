@@ -46,7 +46,9 @@ class _ClassViewerState extends State<ClassViewer> {
     return Scaffold(
       body: items == null
           ? loadingWidget
-          : items.isNotEmpty ? itemFoundWidget : itemEmptyWidget,
+          : items.isNotEmpty
+              ? itemFoundWidget
+              : itemEmptyWidget,
     );
   }
 

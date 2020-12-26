@@ -35,7 +35,9 @@ class _ConfigViewerState extends State<ConfigViewer> {
     return Scaffold(
       body: config == null
           ? loadingWidget
-          : config.isNotEmpty ? itemFoundWidget : itemEmptyWidget,
+          : config.isNotEmpty
+              ? itemFoundWidget
+              : itemEmptyWidget,
     );
   }
 
