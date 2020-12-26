@@ -16,9 +16,9 @@ jobs:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     steps:
     - uses: actions/checkout@v1
-    - uses: subosito/flutter-action@v1.1.1
+    - uses: subosito/flutter-action@v1.4.0
       with:
-        flutter-version: '1.11.0'
+        flutter-version: '1.24.0-10.2.pre'
         channel: 'beta'
     - name: "Rename parse-credentials-sample.json > parse-credentials.json"
       run: mv assets/json/parse-credentials-sample.json assets/json/parse-credentials.json
