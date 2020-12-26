@@ -14,7 +14,6 @@ main() {
         applicationId: 'TEST_APPLICATION_ID',
         clientKey: 'TEST_CLIENT_KEY',
         masterKey: 'TEST_MASTER_KEY',
-        localStoragePath: '/path/to/local/storage',
         enableLogging: false,
       ),
     );
@@ -39,7 +38,6 @@ main() {
         applicationId: 'TEST_APPLICATION_ID',
         clientKey: 'TEST_CLIENT_KEY',
         masterKey: 'TEST_MASTER_KEY',
-        localStoragePath: '/path/to/local/storage',
         enableLogging: false,
       ),
     );

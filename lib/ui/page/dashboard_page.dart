@@ -5,6 +5,7 @@ import 'package:parse_dashboard/ui/page/server_info_page.dart';
 
 import '../../core/models/drawer_menu.dart';
 import 'class_viewer.dart';
+import 'config_viewer.dart';
 import 'dashboard_drawer.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -18,18 +19,24 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  static const int kIndexBrowserItemStart = 2;
   List<Schema> schemas;
   PageController pageController;
   int selected = 0;
 
   @override
   void initState() {
-    Parse.initialize(widget.credential.configuration);
-    pageController = PageController(initialPage: 0);
-
     super.initState();
 
-    fetch();
+    init();
+  }
+
+  init() async {
+    var configuration = widget.credential.configuration;
+
+    Parse.initialize(configuration);
+    pageController = PageController(initialPage: 0);
+    await fetch();
   }
 
   Future<void> fetch() async {
@@ -94,11 +101,7 @@ class _DashboardPageState extends State<DashboardPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  selected != 0
-                      ? schemas == null
-                          ? ''
-                          : 'Browser › ${schemas[selected - 1].className}'
-                      : 'Info › Server Info',
+                  breadCrumbs,
                   style: Theme.of(context).textTheme.caption.copyWith(
                         fontSize: 16,
                       ),
@@ -115,21 +118,45 @@ class _DashboardPageState extends State<DashboardPage> {
             return ServerInfoPage(widget.credential.configuration);
           }
 
-          return ClassViewer(schemas[index - 1]);
+          if (index == 1) {
+            return ConfigViewer();
+          }
+
+          return ClassViewer(schemas[index - kIndexBrowserItemStart]);
         },
         controller: pageController,
-        itemCount: (schemas?.length ?? 0) + 1,
+        itemCount: (schemas?.length ?? 0) + kIndexBrowserItemStart,
         physics: NeverScrollableScrollPhysics(),
       ),
     );
   }
 
+  String get breadCrumbs {
+    if (selected == 0) {
+      return 'Info › Server Info';
+    }
+
+    if (selected == 1) {
+      return 'Global › Config';
+    }
+
+    if (schemas != null) {
+      return 'Browser › ${schemas[selected - kIndexBrowserItemStart].className}';
+    }
+
+    return '';
+  }
+
   void _drawerCallback(DrawerMenu menu) {
     setState(() {
       if (menu.value is Schema) {
-        this.selected = schemas.indexOf(menu.value) + 1;
+        this.selected = schemas.indexOf(menu.value) + kIndexBrowserItemStart;
       } else {
-        this.selected = 0;
+        if (menu.label == '_Config') {
+          this.selected = 1;
+        } else {
+          this.selected = 0;
+        }
       }
       pageController.animateToPage(
         this.selected,
