@@ -65,7 +65,7 @@ class _ConfigViewerState extends State<ConfigViewer> {
             SizedBox(height: 16),
             Text(
               'No config to display',
-              style: Theme.of(context).textTheme.headline.copyWith(
+              style: Theme.of(context).textTheme.headline5.copyWith(
                     color: Colors.blueGrey,
                   ),
             ),

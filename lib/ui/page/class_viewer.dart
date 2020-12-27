@@ -125,7 +125,7 @@ class _ClassViewerState extends State<ClassViewer> {
             SizedBox(height: 16),
             Text(
               'No data to display',
-              style: Theme.of(context).textTheme.headline.copyWith(
+              style: Theme.of(context).textTheme.headline5.copyWith(
                     color: Colors.blueGrey,
                   ),
             ),
