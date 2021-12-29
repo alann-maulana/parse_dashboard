@@ -12,12 +12,13 @@ class ParseCredentialTile extends StatelessWidget {
   final ValueChanged<ParseCredential> onEdit;
   final VoidCallback onDelete;
 
-  ParseCredentialTile(
+  const ParseCredentialTile(
     this.credential, {
+    Key key,
     this.onTap,
     this.onEdit,
     this.onDelete,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class ParseCredentialTile extends StatelessWidget {
                     CircleAvatar(
                       child: Icon(credential.icon),
                     ),
-                    Positioned(
+                    const Positioned(
                       child: Icon(
                         Icons.lock,
                         size: 16,
@@ -60,22 +61,22 @@ class ParseCredentialTile extends StatelessWidget {
   Widget popupMenu(BuildContext context, ParseCredential credential) =>
       PopupMenuButton<String>(
         itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-          PopupMenuItem(
+          const PopupMenuItem(
             child: ListTile(
               leading: Icon(Icons.visibility),
               title: Text('View'),
             ),
             value: 'view',
           ),
-          PopupMenuDivider(),
-          PopupMenuItem(
+          const PopupMenuDivider(),
+          const PopupMenuItem(
             child: ListTile(
               leading: Icon(Icons.edit),
               title: Text('Edit'),
             ),
             value: 'edit',
           ),
-          PopupMenuItem(
+          const PopupMenuItem(
             child: ListTile(
               leading: Icon(Icons.delete),
               title: Text('Delete'),
@@ -89,7 +90,7 @@ class ParseCredentialTile extends StatelessWidget {
           } else if (selected == 'edit') {
             final editedCredential = await Navigator.pushNamed(
               context,
-              ParseCredentialForm.ROUTE,
+              ParseCredentialForm.route,
               arguments: credential,
             );
 
@@ -106,15 +107,16 @@ class ParseCredentialTile extends StatelessWidget {
 class ServerVersionWidget extends StatelessWidget {
   final ParseConfiguration configuration;
 
-  ServerVersionWidget(this.configuration);
+  const ServerVersionWidget(this.configuration, {Key key}) : super(key: key);
 
   Future<String> get checkServerVersion async {
     try {
-      final result = await http
-          .get(configuration.uri.toString() + '/serverInfo', headers: {
-        'X-Parse-Application-Id': configuration.applicationId,
-        'X-Parse-Master-Key': configuration.masterKey,
-      });
+      final result = await http.get(
+          Uri.tryParse(configuration.uri.toString() + '/serverInfo'),
+          headers: {
+            'X-Parse-Application-Id': configuration.applicationId,
+            'X-Parse-Master-Key': configuration.masterKey,
+          });
       final body = result.body;
       final map = json.decode(body);
       final parseServerVersion = map['parseServerVersion'];
@@ -132,11 +134,11 @@ class ServerVersionWidget extends StatelessWidget {
       future: checkServerVersion,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return Text('');
+          return const Text('');
         }
 
         if (!snapshot.hasData) {
-          return Container(
+          return const SizedBox(
             width: 16,
             height: 16,
             child: CircularProgressIndicator(),

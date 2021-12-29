@@ -7,7 +7,9 @@ import 'dashboard_page.dart';
 import 'parse_credential_form.dart';
 
 class HomePage extends StatefulWidget {
-  static const String ROUTE = '/';
+  static const String route = '/';
+
+  const HomePage({Key key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -42,7 +44,7 @@ class _HomePageState extends State<HomePage> {
     if (localCredentials == null) {
       children.add(Container(
         padding: const EdgeInsets.all(16),
-        child: Center(child: CircularProgressIndicator()),
+        child: const Center(child: CircularProgressIndicator()),
       ));
     } else {
       final localStorageTiles = ListTile.divideTiles(
@@ -52,7 +54,7 @@ class _HomePageState extends State<HomePage> {
             credential,
             onTap: () => Navigator.pushNamed(
               context,
-              DashboardPage.ROUTE,
+              DashboardPage.route,
               arguments: credential,
             ),
             onEdit: (c) async {
@@ -64,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                   });
                   parseCredentialApi.setLocalStorage(localCredentials);
                 } else {
-                  print('Editted element not found');
+                  debugPrint('Editted element not found');
                 }
               }
             },
@@ -85,7 +87,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Parse Dashboard'),
+        title: const Text('Parse Dashboard'),
       ),
       body: RefreshIndicator(
         onRefresh: fetchCredentialsFromLocalStorage,
@@ -97,7 +99,7 @@ class _HomePageState extends State<HomePage> {
         onPressed: () async {
           final addedCredential = await Navigator.pushNamed(
             context,
-            ParseCredentialForm.ROUTE,
+            ParseCredentialForm.route,
           );
 
           if (mounted && addedCredential is ParseCredential) {
@@ -108,12 +110,12 @@ class _HomePageState extends State<HomePage> {
           }
         },
         tooltip: 'Add New App',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
 
-  Widget get divider => Divider(height: 0);
+  Widget get divider => const Divider(height: 0);
 
   Widget header(String label) {
     return Container(

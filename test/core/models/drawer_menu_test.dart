@@ -10,7 +10,7 @@ void main() {
   });
 
   test('Check created instance value if equal', () {
-    final test = DrawerMenu('Test', DrawerMenu.browser, 'value-test');
+    const test = DrawerMenu('Test', DrawerMenu.browser, 'value-test');
 
     expect(test.label == 'Test', isTrue);
     expect(test.parent == DrawerMenu.browser, isTrue);
@@ -18,7 +18,7 @@ void main() {
   });
 
   test('Check if created instance defined constant if equal', () {
-    final test = DrawerMenu('Browser');
+    const test = DrawerMenu('Browser');
 
     expect(test == DrawerMenu.browser, isTrue);
     expect(test.label == DrawerMenu.browser.label, isTrue);

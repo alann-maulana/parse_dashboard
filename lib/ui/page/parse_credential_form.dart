@@ -7,7 +7,7 @@ import 'package:parse_dashboard/ui/page/home_page.dart';
 class ParseCredentialForm extends StatefulWidget {
   const ParseCredentialForm({Key key, this.credential}) : super(key: key);
 
-  static const String ROUTE = HomePage.ROUTE + '/forn-credential';
+  static const String route = HomePage.route + '/forn-credential';
 
   final ParseCredential credential;
 
@@ -25,15 +25,14 @@ class _ParseCredentialFormState extends State<ParseCredentialForm> {
 
   @override
   void initState() {
-    this.id = widget.credential?.id ?? uuid.generateV4();
-    this.appNameController =
-        TextEditingController(text: widget.credential?.appName);
-    this.iconData = widget.credential?.icon;
-    this.serverController = TextEditingController(
+    id = widget.credential?.id ?? uuid.generateV4();
+    appNameController = TextEditingController(text: widget.credential?.appName);
+    iconData = widget.credential?.icon;
+    serverController = TextEditingController(
         text: widget.credential?.configuration?.uri?.toString());
-    this.applicationIdController = TextEditingController(
+    applicationIdController = TextEditingController(
         text: widget.credential?.configuration?.applicationId);
-    this.masterKeyController = TextEditingController(
+    masterKeyController = TextEditingController(
         text: widget.credential?.configuration?.masterKey);
 
     super.initState();
@@ -68,11 +67,17 @@ class _ParseCredentialFormState extends State<ParseCredentialForm> {
           bottom: 8,
         ),
         child: SafeArea(
-          child: RaisedButton.icon(
-            color: Colors.orange,
-            textColor: Colors.white,
-            icon: Icon(Icons.save_alt),
-            label: Text('SAVE CREDENTIAL'),
+          child: ElevatedButton.icon(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.resolveWith(
+                (states) => Colors.orange,
+              ),
+              foregroundColor: MaterialStateProperty.resolveWith(
+                (states) => Colors.white,
+              ),
+            ),
+            icon: const Icon(Icons.save_alt),
+            label: const Text('SAVE CREDENTIAL'),
             onPressed: () {
               final appName = appNameController.text;
               final server = serverController.text;
@@ -112,13 +117,13 @@ class _ParseCredentialFormState extends State<ParseCredentialForm> {
         child: TextField(
           controller: appNameController,
           maxLines: null,
-          toolbarOptions: ToolbarOptions(
+          toolbarOptions: const ToolbarOptions(
             copy: true,
             cut: true,
             paste: true,
             selectAll: true,
           ),
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             prefixIcon: Icon(Icons.apps),
             labelText: 'Application Name',
           ),
@@ -131,13 +136,13 @@ class _ParseCredentialFormState extends State<ParseCredentialForm> {
           controller: serverController,
           maxLines: null,
           keyboardType: TextInputType.url,
-          toolbarOptions: ToolbarOptions(
+          toolbarOptions: const ToolbarOptions(
             copy: true,
             cut: true,
             paste: true,
             selectAll: true,
           ),
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             prefixIcon: Icon(Icons.computer),
             labelText: 'Server URL',
           ),
@@ -149,13 +154,13 @@ class _ParseCredentialFormState extends State<ParseCredentialForm> {
         child: TextField(
           controller: applicationIdController,
           maxLines: null,
-          toolbarOptions: ToolbarOptions(
+          toolbarOptions: const ToolbarOptions(
             copy: true,
             cut: true,
             paste: true,
             selectAll: true,
           ),
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             prefixIcon: Icon(Icons.perm_identity),
             labelText: 'Application ID',
           ),
@@ -167,13 +172,13 @@ class _ParseCredentialFormState extends State<ParseCredentialForm> {
         child: TextField(
           controller: masterKeyController,
           maxLines: null,
-          toolbarOptions: ToolbarOptions(
+          toolbarOptions: const ToolbarOptions(
             copy: true,
             cut: true,
             paste: true,
             selectAll: true,
           ),
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             prefixIcon: Icon(Icons.lock_outline),
             labelText: 'Master Key',
           ),

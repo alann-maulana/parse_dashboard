@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_parse/flutter_parse.dart';
+import 'package:flutter_parse_storage_shared_preferences/flutter_parse_storage_shared_preferences.dart';
 
 import 'core/api/parse_credential_api.dart';
 import 'router.dart' as r;
-import 'sentry_client.dart';
 import 'ui/theme/theme_color.dart';
 
 void main() async {
@@ -12,18 +13,22 @@ void main() async {
   await parseCredentialApi
       .initializeAssetJSON('assets/json/parse-credentials.json');
 
+  ParseStorageInterface.instance = ParseStorageSharedPreferences();
+
   // handle error framework
-  handleErrorFramework();
+  // handleErrorFramework();
 
   // run Parse Dashboard widget app in zone
   runZonedGuarded(() {
-    runApp(MyApp());
+    runApp(const MyApp());
   }, (error, stackTrace) {
-    reportError(error, stackTrace);
+    // reportError(error, stackTrace);
   });
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

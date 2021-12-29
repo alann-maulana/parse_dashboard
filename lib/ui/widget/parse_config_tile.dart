@@ -4,7 +4,7 @@ import 'package:flutter_parse/flutter_parse.dart';
 class ParseConfigTile extends StatelessWidget {
   final String parseConfigKey;
 
-  ParseConfigTile(this.parseConfigKey);
+  const ParseConfigTile(this.parseConfigKey, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +18,8 @@ class ParseConfigTile extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(parseConfigKey),
-                SizedBox(width: 4),
-                Icon(
+                const SizedBox(width: 4),
+                const Icon(
                   Icons.lock_outline,
                   size: 18,
                 ),
@@ -33,21 +33,21 @@ class ParseConfigTile extends StatelessWidget {
     final value = parseConfig.get(parseConfigKey);
 
     if (value is bool) {
-      return Icon(Icons.outlined_flag);
+      return const Icon(Icons.outlined_flag);
     } else if (value is String) {
-      return Icon(Icons.text_format);
+      return const Icon(Icons.text_format);
     } else if (value is num) {
-      return Icon(Icons.repeat_one);
+      return const Icon(Icons.repeat_one);
     } else if (value is DateTime) {
-      return Icon(Icons.date_range);
+      return const Icon(Icons.date_range);
     } else if (value is Map) {
-      return Icon(Icons.code);
+      return const Icon(Icons.code);
     } else if (value is List) {
-      return Icon(Icons.list);
+      return const Icon(Icons.list);
     } else if (value is ParseGeoPoint) {
-      return Icon(Icons.map);
+      return const Icon(Icons.map);
     } else if (value is ParseFile) {
-      return Icon(Icons.attach_file);
+      return const Icon(Icons.attach_file);
     }
 
     return null;
@@ -68,15 +68,15 @@ class ParseConfigTile extends StatelessWidget {
     } else if (value is DateTime) {
       return Text(value.toIso8601String());
     } else if (value is Map) {
-      return Text('View Json');
+      return const Text('View Json');
     } else if (value is List) {
-      return Text('View Array');
+      return const Text('View Array');
     } else if (value is ParseGeoPoint) {
       return Text('${value.latitude},${value.longitude}');
     } else if (value is ParseFile) {
-      return Text('Open File');
+      return const Text('Open File');
     }
 
-    return SizedBox.shrink();
+    return const SizedBox.shrink();
   }
 }

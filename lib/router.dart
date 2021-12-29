@@ -6,20 +6,20 @@ import 'ui/page/home_page.dart';
 import 'ui/page/parse_credential_form.dart';
 
 class Router {
-  static const initialRoute = HomePage.ROUTE;
+  static const initialRoute = HomePage.route;
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case HomePage.ROUTE:
+      case HomePage.route:
         return MaterialPageRoute(
-          builder: (_) => HomePage(),
+          builder: (_) => const HomePage(),
         );
-      case DashboardPage.ROUTE:
+      case DashboardPage.route:
         final credential = settings.arguments as ParseCredential;
         return MaterialPageRoute(
           builder: (_) => DashboardPage(credential),
         );
-      case ParseCredentialForm.ROUTE:
+      case ParseCredentialForm.route:
         final ParseCredential credential =
             settings.arguments is ParseCredential ? settings.arguments : null;
         return MaterialPageRoute(

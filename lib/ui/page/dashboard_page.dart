@@ -9,10 +9,10 @@ import 'config_viewer.dart';
 import 'dashboard_drawer.dart';
 
 class DashboardPage extends StatefulWidget {
-  static const String ROUTE = '/dashboard';
+  static const String route = '/dashboard';
   final ParseCredential credential;
 
-  DashboardPage(this.credential);
+  const DashboardPage(this.credential, {Key key}) : super(key: key);
 
   @override
   _DashboardPageState createState() => _DashboardPageState();
@@ -20,7 +20,7 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   static const int kIndexBrowserItemStart = 2;
-  List<Schema> schemas;
+  List<ParseSchema> schemas;
   PageController pageController;
   int selected = 0;
 
@@ -41,7 +41,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   Future<void> fetch() async {
     try {
-      final schemas = await parseSchema.fetch();
+      final schemas = await ParseSchema.fetchAll();
       if (mounted) {
         setState(() {
           schemas.sort((a, b) => a.className.compareTo(b.className));
@@ -51,22 +51,22 @@ class _DashboardPageState extends State<DashboardPage> {
             this.schemas.clear();
           }
 
-          final List<Schema> specials = [];
-          final List<Schema> customs = [];
-          schemas.forEach((schema) {
+          final List<ParseSchema> specials = [];
+          final List<ParseSchema> customs = [];
+          for (var schema in schemas) {
             if (schema.className.startsWith('_')) {
               specials.add(schema);
             } else {
               customs.add(schema);
             }
-          });
+          }
 
           this.schemas.addAll(specials);
           this.schemas.addAll(customs);
         });
       }
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 
@@ -85,8 +85,8 @@ class _DashboardPageState extends State<DashboardPage> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Text(widget.credential.appName),
-              SizedBox(width: 4),
-              Icon(Icons.keyboard_arrow_down),
+              const SizedBox(width: 4),
+              const Icon(Icons.keyboard_arrow_down),
             ],
           ),
           onTap: () => Navigator.pop(context),
@@ -109,7 +109,7 @@ class _DashboardPageState extends State<DashboardPage> {
               ],
             ),
           ),
-          preferredSize: Size.fromHeight(36),
+          preferredSize: const Size.fromHeight(36),
         ),
       ),
       body: PageView.builder(
@@ -119,14 +119,14 @@ class _DashboardPageState extends State<DashboardPage> {
           }
 
           if (index == 1) {
-            return ConfigViewer();
+            return const ConfigViewer();
           }
 
           return ClassViewer(schemas[index - kIndexBrowserItemStart]);
         },
         controller: pageController,
         itemCount: (schemas?.length ?? 0) + kIndexBrowserItemStart,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
       ),
     );
   }
@@ -149,17 +149,17 @@ class _DashboardPageState extends State<DashboardPage> {
 
   void _drawerCallback(DrawerMenu menu) {
     setState(() {
-      if (menu.value is Schema) {
-        this.selected = schemas.indexOf(menu.value) + kIndexBrowserItemStart;
+      if (menu.value is ParseSchema) {
+        selected = schemas.indexOf(menu.value) + kIndexBrowserItemStart;
       } else {
         if (menu.label == '_Config') {
-          this.selected = 1;
+          selected = 1;
         } else {
-          this.selected = 0;
+          selected = 0;
         }
       }
       pageController.animateToPage(
-        this.selected,
+        selected,
         duration: const Duration(milliseconds: 400),
         curve: Curves.easeInOut,
       );

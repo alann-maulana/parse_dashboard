@@ -5,12 +5,14 @@ import 'package:flutter_parse/flutter_parse.dart';
 import 'package:parse_dashboard/ui/widget/parse_config_tile.dart';
 
 class ConfigViewer extends StatefulWidget {
+  const ConfigViewer({Key key}) : super(key: key);
+
   @override
   _ConfigViewerState createState() => _ConfigViewerState();
 }
 
 class _ConfigViewerState extends State<ConfigViewer> {
-  final encoder = JsonEncoder.withIndent('  ');
+  final encoder = const JsonEncoder.withIndent('  ');
   ParseConfig config;
 
   @override
@@ -41,7 +43,7 @@ class _ConfigViewerState extends State<ConfigViewer> {
     );
   }
 
-  Widget get loadingWidget => Center(child: CircularProgressIndicator());
+  Widget get loadingWidget => const Center(child: CircularProgressIndicator());
 
   Widget get itemFoundWidget => RefreshIndicator(
         onRefresh: fetch,
@@ -57,12 +59,12 @@ class _ConfigViewerState extends State<ConfigViewer> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Icon(
+            const Icon(
               Icons.event_note,
               size: 96,
               color: Colors.blueGrey,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               'No config to display',
               style: Theme.of(context).textTheme.headline5.copyWith(

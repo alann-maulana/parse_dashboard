@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_parse/flutter_parse.dart';
 import 'package:parse_dashboard/core/models/parse_class.dart';
@@ -10,16 +8,17 @@ typedef DashboardDrawerCallback = void Function(DrawerMenu menu);
 
 class DashboardDrawer extends StatefulWidget {
   final String appName;
-  final List<Schema> schemas;
+  final List<ParseSchema> schemas;
   final DashboardDrawerCallback callback;
   final RefreshCallback onRefresh;
 
-  DashboardDrawer({
+  const DashboardDrawer({
+    Key key,
     @required this.appName,
     @required this.schemas,
     @required this.callback,
     @required this.onRefresh,
-  });
+  }) : super(key: key);
 
   @override
   _DashboardDrawerState createState() => _DashboardDrawerState();
@@ -38,29 +37,29 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text(
+                const Text(
                   'Parse Dashboard',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 24,
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Text(
                   widget.appName,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.computer,
                     color: Colors.white,
                   ),
-                  title: Text(
+                  title: const Text(
                     'SERVER INFO',
                     style: TextStyle(
                       color: Colors.white,
@@ -82,11 +81,11 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
           Material(
             color: Colors.white,
             child: ListTile(
-              leading: Icon(Icons.tune),
-              title: Text('GLOBAL CONFIG'),
+              leading: const Icon(Icons.tune),
+              title: const Text('GLOBAL CONFIG'),
               onTap: () {
                 widget.callback(
-                  DrawerMenu(
+                  const DrawerMenu(
                     '_Config',
                     DrawerMenu.config,
                   ),
@@ -95,12 +94,12 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
               },
             ),
           ),
-          Divider(height: 0),
+          const Divider(height: 0),
           Material(
             color: Colors.white,
             child: ListTile(
-              leading: Icon(Icons.event_note),
-              title: Text('DATABASE BROWSER'),
+              leading: const Icon(Icons.event_note),
+              title: const Text('DATABASE BROWSER'),
               trailing: Icon(
                 showDatabaseBrowserItem
                     ? Icons.keyboard_arrow_down
@@ -113,11 +112,11 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
               },
             ),
           ),
-          Divider(height: 0),
+          const Divider(height: 0),
         ];
 
         if (widget.schemas == null) {
-          children.add(Center(
+          children.add(const Center(
             child: CircularProgressIndicator(),
           ));
         } else {
@@ -141,7 +140,7 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
               : null;
 
           if (classItems == null) {
-            children.add(Center(
+            children.add(const Center(
               child: Text('No class found'),
             ));
           } else {

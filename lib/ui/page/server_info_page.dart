@@ -5,22 +5,23 @@ import 'package:flutter_parse/flutter_parse.dart';
 import 'package:http/http.dart' as http;
 
 class ServerInfoPage extends StatelessWidget {
-  ServerInfoPage(this.configuration);
+  const ServerInfoPage(this.configuration, {Key key}) : super(key: key);
 
-  final encoder = JsonEncoder.withIndent('  ');
+  final encoder = const JsonEncoder.withIndent('  ');
   final ParseConfiguration configuration;
 
   Future<dynamic> get checkServerVersion async {
     try {
-      final result = await http
-          .get(configuration.uri.toString() + '/serverInfo', headers: {
-        'X-Parse-Application-Id': configuration.applicationId,
-        'X-Parse-Master-Key': configuration.masterKey,
-      });
+      final result = await http.get(
+          Uri.tryParse(configuration.uri.toString() + '/serverInfo'),
+          headers: {
+            'X-Parse-Application-Id': configuration.applicationId,
+            'X-Parse-Master-Key': configuration.masterKey,
+          });
       final body = result.body;
       return json.decode(body);
     } catch (e) {
-      print(e);
+      debugPrint(e);
     }
 
     return {'error': 'Failed to GET /serverInfo'};
@@ -32,13 +33,13 @@ class ServerInfoPage extends StatelessWidget {
       future: checkServerVersion,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return Center(
+          return const Center(
             child: Text('Failed to GET /serverInfo'),
           );
         }
 
         if (!snapshot.hasData) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
