@@ -32,9 +32,6 @@ class TargetPlatform extends Platform {
   String get packageConfig => '';
 
   @override
-  String get packageRoot => '';
-
-  @override
   String get pathSeparator => '/';
 
   @override

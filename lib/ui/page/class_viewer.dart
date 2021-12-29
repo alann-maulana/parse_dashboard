@@ -7,17 +7,17 @@ import 'package:parse_dashboard/core/models/parse_class.dart';
 import 'dashboard_page.dart';
 
 class ClassViewer extends StatefulWidget {
-  static const String ROUTE = DashboardPage.ROUTE + '/class';
-  final Schema schema;
+  static const String route = DashboardPage.route + '/class';
+  final ParseSchema schema;
 
-  ClassViewer(this.schema);
+  const ClassViewer(this.schema, {Key key}) : super(key: key);
 
   @override
   _ClassViewerState createState() => _ClassViewerState();
 }
 
 class _ClassViewerState extends State<ClassViewer> {
-  final encoder = JsonEncoder.withIndent('  ');
+  final encoder = const JsonEncoder.withIndent('  ');
   List<dynamic> items;
   List<bool> expanded;
 
@@ -31,7 +31,7 @@ class _ClassViewerState extends State<ClassViewer> {
   Future<void> fetch() async {
     final list = await ParseQuery(
       className: widget.schema.className,
-    ).findAsync(useMasterKey: true);
+    ).find(useMasterKey: true);
 
     if (mounted) {
       setState(() {
@@ -46,11 +46,13 @@ class _ClassViewerState extends State<ClassViewer> {
     return Scaffold(
       body: items == null
           ? loadingWidget
-          : items.isNotEmpty ? itemFoundWidget : itemEmptyWidget,
+          : items.isNotEmpty
+              ? itemFoundWidget
+              : itemEmptyWidget,
     );
   }
 
-  Widget get loadingWidget => Center(child: CircularProgressIndicator());
+  Widget get loadingWidget => const Center(child: CircularProgressIndicator());
 
   Widget get itemFoundWidget => SingleChildScrollView(
         child: ExpansionPanelList(
@@ -68,11 +70,11 @@ class _ClassViewerState extends State<ClassViewer> {
             }
             return ExpansionPanel(
               headerBuilder: (BuildContext context, bool isExpanded) {
-                final onTap = () {
+                onTap() {
                   setState(() {
                     expanded[items.indexOf(o)] = !isExpanded;
                   });
-                };
+                }
 
                 if (o is ParseSession) {
                   return ListTile(
@@ -98,7 +100,7 @@ class _ClassViewerState extends State<ClassViewer> {
                   );
                 }
 
-                return ListTile(
+                return const ListTile(
                   title: Text('Unknown object'),
                 );
               },
@@ -120,10 +122,10 @@ class _ClassViewerState extends State<ClassViewer> {
               size: 96,
               color: Colors.blueGrey,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               'No data to display',
-              style: Theme.of(context).textTheme.headline.copyWith(
+              style: Theme.of(context).textTheme.headline5.copyWith(
                     color: Colors.blueGrey,
                   ),
             ),

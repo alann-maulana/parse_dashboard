@@ -34,7 +34,7 @@ class ParseCredentialApi {
       return;
     }
 
-    throw FormatException('invalid json credentials');
+    throw const FormatException('invalid json credentials');
   }
 
   Future<void> initializeURLJSON(String path,
@@ -43,13 +43,13 @@ class ParseCredentialApi {
       return;
     }
 
-    final result = await http.get(path, headers: headers);
+    final result = await http.get(Uri.tryParse(path), headers: headers);
     final source = result.body;
     if (_parseString(source)) {
       return;
     }
 
-    throw FormatException('invalid json credentials');
+    throw const FormatException('invalid json credentials');
   }
 
   Future<List<ParseCredential>> getFromLocalStorage() async {

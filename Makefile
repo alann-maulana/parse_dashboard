@@ -3,7 +3,7 @@ DARTANALYZER_FLAGS=--fatal-warnings
 build: lib/*dart test/*dart deps
 	dartanalyzer ${DARTANALYZER_FLAGS} lib/
 	dartfmt -n --set-exit-if-changed lib/ test/
-	flutter test --coverage --coverage-path ./coverage/lcov.info
+	fvm spawn latest test --coverage --coverage-path ./coverage/lcov.info
 
 deps: pubspec.yaml
 	flutter packages get -v
@@ -20,10 +20,10 @@ build-local: reformatting build
 build-dev: lib/ test/ deps-dev
 	dartanalyzer ${DARTANALYZER_FLAGS} lib/
 	dartfmt -n --set-exit-if-changed lib/ test/
-	flutter-dev test --coverage --coverage-path ./coverage/lcov.info
+	fvm spawn latest test --coverage --coverage-path ./coverage/lcov.info
 
 deps-dev: pubspec.yaml
-	flutter-dev packages get -v
+	fvm spawn latest packages get -v
 
 build-local-dev: reformatting build-dev
 	genhtml -o coverage coverage/lcov.info
@@ -33,6 +33,6 @@ build-local-dev: reformatting build-dev
 
 # Build split Apk Bundle for both ARM-ARM64
 apk-split-dev:
-	flutter-dev packages get
-	flutter-dev build apk --target-platform android-arm,android-arm64 --split-per-abi -v
+	fvm spawn latest packages get
+	fvm spawn latest build apk --target-platform android-arm,android-arm64 --split-per-abi -v
 	open `PWD`/build/app/outputs/apk/release/

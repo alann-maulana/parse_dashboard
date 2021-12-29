@@ -29,9 +29,6 @@ class TargetPlatform extends Platform {
   String get packageConfig => throw UnimplementedError();
 
   @override
-  String get packageRoot => throw UnimplementedError();
-
-  @override
   String get pathSeparator => throw UnimplementedError();
 
   @override
